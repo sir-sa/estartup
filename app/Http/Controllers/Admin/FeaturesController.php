@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Features;
 
 class FeaturesController extends Controller
 {
@@ -14,7 +15,8 @@ class FeaturesController extends Controller
      */
     public function index()
     {
-        //
+        $featuress =Features::all();
+        return view('admin.features.index',compact('featuress'));
     }
 
     /**
@@ -24,7 +26,7 @@ class FeaturesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.features.index');
     }
 
     /**
@@ -35,7 +37,16 @@ class FeaturesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $features =array(
+            'src'=>$request->src,
+            'heading'=>$request->heading,
+            'description'=>$request->description,
+           
+        );
+
+        Features::create($features);
+
+        return redirect()->route('admin.features.index');
     }
 
     /**
@@ -57,7 +68,9 @@ class FeaturesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $features = Features::findOrFail($id);
+
+        return view('admin.features.edit',compact('features'));
     }
 
     /**
@@ -69,7 +82,21 @@ class FeaturesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'src'=>'required',
+            'heading'=>'required',
+            'description'=>'required',
+             
+        ]);
+
+        $features = Features::find($id);
+        $features->src = $request->input('src');
+        $features->heading = $request->input('heading');
+        $features->description = $request->input('description');
+         
+         
+        $indexs->save(); //persist the data
+        return redirect()->route('admin.features.index');
     }
 
     /**
@@ -80,6 +107,9 @@ class FeaturesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $features= Features::findOrFail($id);
+        $features->delete();
+
+        return redirect(route('admin.features.index'));
     }
 }
