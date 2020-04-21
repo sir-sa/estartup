@@ -129,75 +129,74 @@
  
           </div>
 
-          <!-- ======= Get Started Section ======= -->
-    <section id="get-started" class="padd-section text-center wow fadeInUp">
-
-      <div class="container">
-        <div class="section-title text-center">
-
-          <h2>simple systeme fordiscount </h2>
-          <p class="separator">Integer cursus bibendum augue ac cursus .</p>
-
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <a class="nav-link btn btn-info" href="{{url('admin/fordiscount/create')}}" style="margin-left:82%">Add New service </a>
-            
-            <table class="table table-bordered" >
-                <tr style="background:green">
-                  <th>Image</th>
-                  <th>Heading</th>
-                  <th>Description</th>
-                    
-                  <th>Action</th>
-                  <th>Action</th>
-                  <th>Action</th>
-                </tr>
-                @foreach ($indexs as $index)
-                <div class="col-md-6 col-lg-4">
-                  <div class="feature-block">
-                    <tr class = "text-center">
-                      <td>{{$index->src}}</td>
-                      <td>{{$index->heading}}</td>
-                      <td>{{$index->description}}</td>
-                      
-                      <td><a href="{{route('admin.fordiscount.show',$index->id)}}" class = "btn btn-success">Show</a></td>
-                      <td><a href="{{route('admin.fordiscount.edit', $index->id)}}" class = "btn btn-info">Edit</a></td>
-                         
-                        <td>
-                        <form action="{{ url('admin/fordiscount/'.$index->id)}}" method="post">
-                          @csrf
-                          @method('DELETE')
-                          <button class="btn btn-danger" type="submit">Delete</button>
-                        </form>
-                       </td>   
-                  </div>
-                </div>
-                @endforeach
-                
-              </table>
-           </div>
-         </div>
-
           
+       
+      
+                <!-- ======= About Us Section ======= -->
+<section id="about-us" class="about-us padd-section wow fadeInUp">
+    <div class="container">
+        <a class="nav-link btn btn-info" href="{{url('admin/about/create')}}" style="margin-left:82%">Add New service </a>
+        <table class="table table-bordered" >
+            <tr style="background:green">
+              <th>Image</th>
+              <th>Description</th>
+              <th>List1</th>
+              <th>List2</th>
+              <th>List3</th>
+              <th>List4</th>
+              <th>List5</th>
+              <th>Action</th>
+              <th>Action</th>
+               
+            </tr>
+  
+          @foreach ( $abouts as $about )
+            <div class="row justify-content-center">
+            <tr>
 
-           
+                <div class="col-md-5 col-lg-3">
+                     <td>{{$about->src}}</td> 
+                </div>
+        
+                <div class="col-md-7 col-lg-5">
+                    <div class="about-content">
+        
+                    <h2><span>eStartup</span>UI Design Mobile </h2>
+                     <td>{{$about->description}}</td>  
+                    
+        
+                    <ul class="list-unstyled">
+                         <td>{{$about->list1}}</td> 
+                         <td>{{$about->list2}}</td>  
+                         <td>{{$about->list3}}</td> 
+                         <td>{{$about->list4}}</td>  
+                         <td>{{$about->list5}}</td>  
+                    </ul>
+                  
+                    <td><a href="{{route('admin.about.edit', $about->id)}}" class = "btn btn-info">Edit</a></td>
+                       
+                      <td>
+                      <form action="{{ url('admin/about/'.$about->id)}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                      </form>
+                     </td>  
+                    </div>
+                </div>
+            </tr>
+            @endforeach
+        </table>
 
-        </div>
-      </div>
 
-    </section><!-- End Get Started Section -->
+     </section><!-- End Get About Section -->
 
             
            
           
      
     
-            
-        </div>
+          
             
 
           

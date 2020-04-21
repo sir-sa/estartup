@@ -129,75 +129,58 @@
  
           </div>
 
-          <!-- ======= Get Started Section ======= -->
-    <section id="get-started" class="padd-section text-center wow fadeInUp">
-
-      <div class="container">
-        <div class="section-title text-center">
-
-          <h2>simple systeme fordiscount </h2>
-          <p class="separator">Integer cursus bibendum augue ac cursus .</p>
-
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <a class="nav-link btn btn-info" href="{{url('admin/fordiscount/create')}}" style="margin-left:82%">Add New service </a>
-            
-            <table class="table table-bordered" >
-                <tr style="background:green">
-                  <th>Image</th>
-                  <th>Heading</th>
-                  <th>Description</th>
-                    
-                  <th>Action</th>
-                  <th>Action</th>
-                  <th>Action</th>
-                </tr>
-                @foreach ($indexs as $index)
-                <div class="col-md-6 col-lg-4">
-                  <div class="feature-block">
-                    <tr class = "text-center">
-                      <td>{{$index->src}}</td>
-                      <td>{{$index->heading}}</td>
-                      <td>{{$index->description}}</td>
-                      
-                      <td><a href="{{route('admin.fordiscount.show',$index->id)}}" class = "btn btn-success">Show</a></td>
-                      <td><a href="{{route('admin.fordiscount.edit', $index->id)}}" class = "btn btn-info">Edit</a></td>
-                         
-                        <td>
-                        <form action="{{ url('admin/fordiscount/'.$index->id)}}" method="post">
-                          @csrf
-                          @method('DELETE')
-                          <button class="btn btn-danger" type="submit">Delete</button>
-                        </form>
-                       </td>   
-                  </div>
-                </div>
-                @endforeach
-                
-              </table>
-           </div>
-         </div>
-
           
-
+       
+      
+                <!-- ======= About Us Section ======= -->
+<section id="about-us" class="about-us padd-section wow fadeInUp">
+    <div class="container">
+        <form action="{{route('admin.about.update',$abouts->id)}}" method = "post">
+            @csrf
+            @method('PATCH')
+            <div class="form-group">
+                <label for="src">Image</label>
+                <input type="file" name ="src" id ="src" value=" {{$abouts->src}} " class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" name = "description" id = "description" value="{{$abouts->description}}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="list1">List1</label>
+                <input type="text" name = "list1" id = "list1" value=" {{$abouts->list1}} " class="form-control" required>
+            </div>
            
+            <div class="form-group">
+                <label for="list2">List2</label>
+                <input type="text" name = "list2" id = "list2" value=" {{$abouts->list2}} " class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="list3">List3</label>
+                <input type="text" name = "list3" id = "list3" value=" {{$abouts->list3}} " class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="list4">List4</label>
+                <input type="text" name = "list4" id = "list4" value=" {{$abouts->list4}} " class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="list5">List5</label>
+                <input type="text" name = "list5" id = "list5" value=" {{$abouts->list5}} " class="form-control" required>
+            </div>
+             
+            <button type = "submit" class = "btn btn-success">Submit</button>
+          </form>
 
-        </div>
-      </div>
 
-    </section><!-- End Get Started Section -->
+     </section><!-- End Get About Section -->
 
             
            
           
      
     
-            
-        </div>
+          
             
 
           
