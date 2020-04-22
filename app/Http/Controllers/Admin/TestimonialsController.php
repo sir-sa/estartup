@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Testimonials;
 
 class TestimonialsController extends Controller
 {
@@ -14,7 +15,8 @@ class TestimonialsController extends Controller
      */
     public function index()
     {
-        //
+        $testimonials=Testimonials::all();
+        return view('admin.testimonial.index',compact('testimonials'));
     }
 
     /**
@@ -24,7 +26,7 @@ class TestimonialsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.testimonial.create');
     }
 
     /**
@@ -35,7 +37,16 @@ class TestimonialsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $testimonials =array(
+             
+            'heading'=>$request->heading,
+            'description'=>$request->description,
+           
+        );
+
+        Testimonials::create($testimonials);
+
+        return redirect()->route('admin.testimonial.index');
     }
 
     /**
@@ -57,7 +68,8 @@ class TestimonialsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $testimonials = Testimonials::findOrFail($id);
+        return view('admin.team.edit',compact('teams'));
     }
 
     /**
@@ -69,7 +81,21 @@ class TestimonialsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+             
+            'heading'=>'required',
+            'description'=>'required',
+             
+        ]);
+
+        $testimonials =  Testimonials::find($id);
+        
+        $testimonials->heading = $request->input('heading');
+        $testimonials->description = $request->input('description');
+         
+         
+        $testimonials->save(); //persist the data
+        return redirect()->route('admin.testimonia.index');
     }
 
     /**
@@ -80,6 +106,9 @@ class TestimonialsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $testimonials= Testimonials::findOrFail($id);
+        $testimonials->delete();
+
+        return redirect()->route('admin.testimonial.index');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Screenshots;
 
 class ScreenshotsController extends Controller
 {
@@ -14,7 +15,8 @@ class ScreenshotsController extends Controller
      */
     public function index()
     {
-        //
+        $screenshots =Screenshots::all();
+        return view('admin.screenshot.index',compact('screenshots'));
     }
 
     /**
@@ -24,7 +26,7 @@ class ScreenshotsController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.screenshot.create');
     }
 
     /**
@@ -35,7 +37,11 @@ class ScreenshotsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $screenshots = array([
+            'src'=>$request->src,
+        ]);
+        Screenshots::create($screenshots);
+
     }
 
     /**
@@ -57,7 +63,8 @@ class ScreenshotsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $screenshots =Screenshots::findOrFail();
+        return view('admin.screenshot.edit',compact('screenshots'));
     }
 
     /**
@@ -69,7 +76,14 @@ class ScreenshotsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'src'=>'required'
+        ]);
+        $screenshots =Screenshots::find($id);
+        $screenshots->src=$request->input('src');
+
+        $screenshots->save();
+        return redirect()->route('admin.screenshot.index');
     }
 
     /**
@@ -80,6 +94,9 @@ class ScreenshotsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $screenshots= Screenshots::findOrFail($id);
+        $screenshots->delete();
+
+        return redirect()->route('admin.screenshot.index');
     }
 }

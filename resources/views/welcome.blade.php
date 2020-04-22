@@ -29,6 +29,8 @@
   <!-- Template Main CSS File -->
   <link href="{{asset('css/app.css')}}" rel="stylesheet">
   <link href="{{asset('css/style.css')}}" rel="stylesheet">
+  
+
 
   <!-- =======================================================
   * Template Name: eStartup - v2.0.0

@@ -78,8 +78,8 @@
             <a class="collapse-item" href="{{route('admin.fordiscount.index')}}">Fordiscount</a>
             <a class="collapse-item" href="{{route('admin.about.index')}}">About</a>
             <a class="collapse-item" href="{{route('admin.features.index')}}">Features</a>
-            <a class="collapse-item" href="{{route('admin.features.index')}}">Screensots</a>
-            <a class="collapse-item" href="{{route('admin.screenshot.index')}}">Team</a>
+            <a class="collapse-item" href="{{route('admin.screenshot.index')}}">Screenshots</a>
+            <a class="collapse-item" href="{{route('admin.team.index')}}">Team</a>
             <a class="collapse-item" href="{{route('admin.testimonial.index')}}">Testimonials</a>
             <a class="collapse-item" href="{{route('admin.pricing.index')}}">Pricing</a>
             <a class="collapse-item" href="{{route('admin.blog.index')}}">Blog</a>
@@ -153,6 +153,10 @@
       </div>
     </div>
   </div>
+
+  <main class="py-4">
+    @yield('content')
+  </main>
 
   <!-- Bootstrap core JavaScript-->
   <script src="{{asset('admin/vendor/jquery/jquery.min.js')}}"></script>

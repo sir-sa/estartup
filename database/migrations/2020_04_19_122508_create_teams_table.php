@@ -18,7 +18,7 @@ class CreateTeamsTable extends Migration
             $table->string('src');
             $table->string('heading');
             $table->string('description');
-            $table->string('name');
+         
             $table->timestamps();
         });
     }

@@ -15,8 +15,8 @@ class FeaturesController extends Controller
      */
     public function index()
     {
-        $featuress =Features::all();
-        return view('admin.features.index',compact('featuress'));
+        $features =Features::all();
+        return view('admin.features.index',compact('features'));
     }
 
     /**
@@ -26,7 +26,7 @@ class FeaturesController extends Controller
      */
     public function create()
     {
-        return view('admin.features.index');
+        return view('admin.features.create');
     }
 
     /**
@@ -95,7 +95,7 @@ class FeaturesController extends Controller
         $features->description = $request->input('description');
          
          
-        $indexs->save(); //persist the data
+        $features->save(); //persist the data
         return redirect()->route('admin.features.index');
     }
 
@@ -110,6 +110,6 @@ class FeaturesController extends Controller
         $features= Features::findOrFail($id);
         $features->delete();
 
-        return redirect(route('admin.features.index'));
+        return redirect()->route('admin.features.index');
     }
 }

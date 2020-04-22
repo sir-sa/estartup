@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Team;
 
 class TeamController extends Controller
 {
@@ -14,7 +15,8 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
+        $teams =Team::all();
+        return view('admin.team.index',compact('teams'));
     }
 
     /**
@@ -24,7 +26,7 @@ class TeamController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.team.create');
     }
 
     /**
@@ -35,7 +37,16 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $teams =array(
+            'src'=>$request->src,
+            'heading'=>$request->heading,
+            'description'=>$request->description,
+           
+        );
+
+        Team::create($teams);
+
+        return redirect()->route('admin.team.index');
     }
 
     /**
@@ -57,7 +68,8 @@ class TeamController extends Controller
      */
     public function edit($id)
     {
-        //
+        $teams =Team::findOrFail($id);
+        return view('admin.team.edit',compact('teams'));
     }
 
     /**
@@ -69,7 +81,21 @@ class TeamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'src'=>'required',
+            'heading'=>'required',
+            'description'=>'required',
+             
+        ]);
+
+        $teams = Team::find($id);
+        $teams->src = $request->input('src');
+        $teams->heading = $request->input('heading');
+        $teams->description = $request->input('description');
+         
+         
+        $teams->save(); //persist the data
+        return redirect()->route('admin.team.index');
     }
 
     /**
@@ -80,6 +106,9 @@ class TeamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $teams= Team::findOrFail($id);
+        $teams->delete();
+
+        return redirect()->route('admin.team.index');
     }
 }

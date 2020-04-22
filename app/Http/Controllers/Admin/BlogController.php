@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Blog;
 
 class BlogController extends Controller
 {
@@ -14,7 +15,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        $blogs=Blog::all();
+        return view('admin.blog.index',compact('blogs'));
+
     }
 
     /**
@@ -24,7 +27,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.blog.create');
     }
 
     /**
@@ -35,7 +38,16 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $blogs =array(
+            'src'=>$request->src,
+            'description'=>$request->description,
+            'date'=>$request->date,
+           
+        );
+
+        BLOG::create($blogs);
+
+        return redirect()->route('admin.blog.index');
     }
 
     /**
@@ -57,7 +69,8 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        //
+        $blogs =Blog::findOrFail($id);
+        return view('admin.blog.edit',compact('blogs'));
     }
 
     /**
@@ -69,7 +82,21 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'src'=>'required',
+            'description'=>'required',
+            'date'=>'required',
+             
+        ]);
+
+        $blogs = Team::find($id);
+        $blogs->src = $request->input('src');
+        $blogs->description = $request->input('description');
+        $blogs->date = $request->input('date');
+         
+         
+        $blogs->save(); //persist the data
+        return redirect()->route('admin.blog.index');
     }
 
     /**
@@ -80,6 +107,9 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $blogs= Blog::findOrFail($id);
+        $blogs->delete();
+
+        return redirect()->route('admin.blog.index');
     }
 }
