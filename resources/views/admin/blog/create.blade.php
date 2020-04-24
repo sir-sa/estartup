@@ -17,7 +17,7 @@
           </div>
         </div>
          
-        <form action="{{route('admin.team.store')}}" method = "post">
+        <form action="{{route('admin.blog.store')}}" method = "post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="src">Image</label>

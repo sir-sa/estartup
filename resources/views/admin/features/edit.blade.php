@@ -14,7 +14,7 @@
             <p class="separator">Integer cursus bibendum augue ac cursus .</p>
           </div>
         </div>
-        <form action="{{route('admin.fordiscount.update',$features->id)}}" method = "post">
+        <form action="{{route('admin.features.update',$features->id)}}" method = "post" enctype="multipart/form-data">
           @csrf
           @method('PATCH')
           <div class="form-group">

@@ -27,7 +27,7 @@
   <link href="{{ asset('vendor/owl.carousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="{{asset('css/app.css')}}" rel="stylesheet">
+  
   <link href="{{asset('css/style.css')}}" rel="stylesheet">
   
 
@@ -212,24 +212,24 @@
       </div>
 
       <div class="container">
-        
         <div class="owl-carousel owl-theme">
-          
-          <div>
-            @foreach ($screenshots as $screenshot)
-              {{-- <img src="{{$screenshot->src}}" alt="img"> --}}
-              <img src="{{$screenshot->src}}" alt="img" class="img-fluid">
-            @endforeach
-          </div>
-               
 
-            </div>
-          </div>
+          @foreach ($screenshots as $screenshot)
+          <div><img src="{{$screenshot->src}}" alt="img" class="img-fluid"></div>
+          @endforeach
+
+        </div>
+      </div>
+
+           
+        
+          
+            
 
     </section><!-- End Screenshots Section -->
 
-    <!-- ======= Video Section ======= -->
-    <section id="video" class="text-center wow fadeInUp">
+     <!-- ======= Video Section ======= -->
+     <section id="video" class="text-center wow fadeInUp">
       <div class="overlay">
         <div class="container-fluid container-full">
 
@@ -302,11 +302,7 @@
                       </div>
                     </div>
                   @endforeach
-
-
-                  
-
-                   
+   
 
                 </div>
 
@@ -616,7 +612,7 @@
   <script src="{{asset('vendor/hoverIntent/hoverIntent.js')}}"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="{{asset('js/main.js')}}"></script>
 
 </body>
 

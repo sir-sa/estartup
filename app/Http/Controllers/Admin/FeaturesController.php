@@ -37,14 +37,29 @@ class FeaturesController extends Controller
      */
     public function store(Request $request)
     {
-        $features =array(
-            'src'=>$request->src,
-            'heading'=>$request->heading,
-            'description'=>$request->description,
+        // $features =array(
+        //     'src'=>$request->src,
+        //     'heading'=>$request->heading,
+        //     'description'=>$request->description,
            
-        );
+        // );
+        // Features::create($features);
 
-        Features::create($features);
+        $features = new Features();
+        if ($request->file('src')) {
+            $file = $request->file('src');    
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename= time() . '.' . $extension;
+            $file ->move('img/svg/',$filename);
+            $features->src =$filename;
+        } else {
+            return   $request;
+            $features ->src ='src';
+        }
+        $features->heading=$request->input('heading');
+        $features->description=$request->input('description');
+        $features->save();
+
 
         return redirect()->route('admin.features.index');
     }
@@ -90,7 +105,14 @@ class FeaturesController extends Controller
         ]);
 
         $features = Features::find($id);
-        $features->src = $request->input('src');
+        if ($request->file('src')) {
+            $file = $request->file('src');    
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename= time() . '.' . $extension;
+            $file ->move('img/svg/',$filename);
+            $features->src =$filename;
+        }
+         
         $features->heading = $request->input('heading');
         $features->description = $request->input('description');
          

@@ -12,7 +12,7 @@
                              <!-- ======= About Us Section ======= -->
 <section id="about-us" class="about-us padd-section wow fadeInUp">
   <div class="container">
-      <form action="{{route('admin.about.update',$abouts->id)}}" method = "post">
+      <form action="{{route('admin.about.update',$abouts->id)}}" method = "post" enctype="multipart/form-data">
           @csrf
           @method('PATCH')
           <div class="form-group">

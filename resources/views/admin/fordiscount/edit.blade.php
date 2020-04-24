@@ -21,7 +21,7 @@
       <div class="container">
         <div class="row mt-5">
             <div class="col-sm-8 offset-sm-2">
-              <form action="{{route('admin.fordiscount.update',$indexs->id)}}" method = "post">
+              <form action="{{route('admin.fordiscount.update',$indexs->id)}}" method = "post" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="form-group">

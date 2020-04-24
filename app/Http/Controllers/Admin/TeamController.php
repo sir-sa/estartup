@@ -37,14 +37,29 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        $teams =array(
-            'src'=>$request->src,
-            'heading'=>$request->heading,
-            'description'=>$request->description,
+        // $teams =array(
+        //     'src'=>$request->src,
+        //     'heading'=>$request->heading,
+        //     'description'=>$request->description,
            
-        );
+        // );
 
-        Team::create($teams);
+        // Team::create($teams);
+
+        $teams = new Team();
+        if ($request->file('src')) {
+            $file = $request->file('src');    
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename= time() . '.' . $extension;
+            $file ->move('img/svg/',$filename);
+            $teams->src =$filename;
+        } else {
+            return   $request;
+            $teams ->src ='src';
+        }
+        $teams->heading=$request->input('heading');
+        $teams->description=$request->input('description');
+        $teams->save();
 
         return redirect()->route('admin.team.index');
     }
@@ -89,7 +104,13 @@ class TeamController extends Controller
         ]);
 
         $teams = Team::find($id);
-        $teams->src = $request->input('src');
+        if ($request->file('src')) {
+            $file = $request->file('src');    
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename= time() . '.' . $extension;
+            $file ->move('img/svg/',$filename);
+            $teams->src =$filename;
+        }
         $teams->heading = $request->input('heading');
         $teams->description = $request->input('description');
          

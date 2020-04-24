@@ -37,10 +37,24 @@ class ScreenshotsController extends Controller
      */
     public function store(Request $request)
     {
-        $screenshots = array([
-            'src'=>$request->src,
-        ]);
-        Screenshots::create($screenshots);
+        // $screenshots = array([
+        //     'src'=>$request->src,
+        // ]);
+        // Screenshots::create($screenshots);
+
+        $screenshots = new Screenshots();
+        if ($request->file('src')) {
+            $file = $request->file('src');    
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename= time() . '.' . $extension;
+            $file ->move('img/blog/',$filename);
+            $screenshots->src =$filename;
+        } else {
+            return   $request;
+            $screenshots->src ='src';
+        }
+        $screenshots->save();
+        return redirect()->route('admin.screenshot.index');
 
     }
 
@@ -80,7 +94,14 @@ class ScreenshotsController extends Controller
             'src'=>'required'
         ]);
         $screenshots =Screenshots::find($id);
-        $screenshots->src=$request->input('src');
+        if ($request->file('src')) {
+            $file = $request->file('src');    
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename= time() . '.' . $extension;
+            $file ->move('img/blog/',$filename);
+            $screenshots->src =$filename;
+        }
+        
 
         $screenshots->save();
         return redirect()->route('admin.screenshot.index');

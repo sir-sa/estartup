@@ -38,14 +38,29 @@ class  FordiscountController extends Controller
      */
     public function store(Request $request)
     {
-        $indexs =array(
-            'src'=>$request->src,
-            'heading'=>$request->heading,
-            'description'=>$request->description,
+        // $indexs =array(
+        //     'src'=>$request->src,
+        //     'heading'=>$request->heading,
+        //     'description'=>$request->description,
            
-        );
+        // );
+        // Fordiscount::create($indexs);
 
-        Fordiscount::create($indexs);
+
+        $indexs = new Fordiscount();
+        if ($request->file('src')) {
+            $file = $request->file('src');    
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename= time() . '.' . $extension;
+            $file ->move('img/blog/',$filename);
+            $indexs->src =$filename;
+        } else {
+            return   $request;
+            $indexs ->src ='src';
+        }
+        $indexs->heading =$request->input('heading');
+        $indexs->description=$request->input('description');
+        $indexs->save();
 
         return redirect()->route('admin.fordiscount.index');
     }
@@ -93,7 +108,14 @@ class  FordiscountController extends Controller
         ]);
 
         $indexs = Fordiscount::find($id);
-        $indexs->src = $request->input('src');
+        if ($request->file('src')) {
+            $file = $request->file('src');    
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename= time() . '.' . $extension;
+            $file ->move('img/blog/',$filename);
+            $indexs->src =$filename;
+        }
+        
         $indexs->heading = $request->input('heading');
         $indexs->description = $request->input('description');
          

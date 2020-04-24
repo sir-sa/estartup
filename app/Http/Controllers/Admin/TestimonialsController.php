@@ -45,6 +45,7 @@ class TestimonialsController extends Controller
         );
 
         Testimonials::create($testimonials);
+        
 
         return redirect()->route('admin.testimonial.index');
     }

@@ -38,14 +38,29 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        $blogs =array(
-            'src'=>$request->src,
-            'description'=>$request->description,
-            'date'=>$request->date,
+        // $blogs =array(
+        //     'src'=>$request->src,
+        //     'description'=>$request->description,
+        //     'date'=>$request->date,
            
-        );
+        // );
+        // BLog::create($blogs); 
 
-        BLOG::create($blogs);
+
+        $blogs = new Blog();
+        if ($request->file('src')) {
+            $file = $request->file('src');    
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename= time() . '.' . $extension;
+            $file ->move('img/blog/',$filename);
+            $blogs->src =$filename;
+        } else {
+            return   $request;
+            $blogs ->src ='src';
+        }
+        $blogs->description = $request->input('description');
+        $blogs->date = $request->input('date');
+        $blogs->save();
 
         return redirect()->route('admin.blog.index');
     }
@@ -90,7 +105,14 @@ class BlogController extends Controller
         ]);
 
         $blogs = Team::find($id);
-        $blogs->src = $request->input('src');
+        if ($request->file('src')) {
+            $file = $request->file('src');    
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename= time() . '.' . $extension;
+            $file ->move('img/blog/',$filename);
+            $blogs->src =$filename;
+        }
+        
         $blogs->description = $request->input('description');
         $blogs->date = $request->input('date');
          

@@ -19,7 +19,7 @@
           </div>
         </div>
         <a class="nav-link btn btn-info" href="{{url('admin/blog/create')}}" style="margin-left:82%">Add New service </a>
-        <form action="{{route('admin.team.store',$blogs->id)}}" method = "post">
+        <form action="{{route('admin.team.store',$blogs->id)}}" method = "post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="src">Image</label>

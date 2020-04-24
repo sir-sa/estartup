@@ -17,7 +17,7 @@
    
     <div class="container">
       <div class="row">
-        <form action="{{route('admin.team.store',$teams->id)}}" method = "post">
+        <form action="{{route('admin.team.store',$teams->id)}}" method = "post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="src">Image</label>

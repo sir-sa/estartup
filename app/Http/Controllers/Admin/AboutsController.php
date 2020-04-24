@@ -37,18 +37,38 @@ class AboutsController extends Controller
      */
     public function store(Request $request)
     {
-        $abouts =array(
-            'src'=>$request->src,
-            'description'=>$request->description,
-            'list1'=>$request->list1,
-            'list2'=>$request->list2,
-            'list3'=>$request->list3,
-            'list4'=>$request->list4,
-            'list5'=>$request->list5,
+        // $abouts =array(
+        //     'src'=>$request->src,
+        //     'description'=>$request->description,
+        //     'list1'=>$request->list1,
+        //     'list2'=>$request->list2,
+        //     'list3'=>$request->list3,
+        //     'list4'=>$request->list4,
+        //     'list5'=>$request->list5,
+         
            
-        );
+        // );
+ 
+        $abouts = new About();
+            if ($request->file('src')) {
+                $file = $request->file('src');    
+                $extension = $file->getClientOriginalExtension(); //getting image extension
+                $filename= time() . '.' . $extension;
+                $file ->move('img/',$filename);
+                $abouts->src =$filename;
+            } else {
+                return   $request;
+                $abouts ->src ='src';
+            }
+            $abouts->description = $request->input('description');
+            $abouts->list1= $request->input('list1');
+            $abouts->list2= $request->input('list2');
+            $abouts->list3= $request->input('list3');
+            $abouts->list4= $request->input('list4');
+            $abouts->list5= $request->input('list5');
+            $abouts->save();
+          
 
-        About::create($abouts);
 
         return redirect()->route('admin.about.index');
     }
@@ -97,7 +117,14 @@ class AboutsController extends Controller
         ]);
 
         $abouts = About::find($id);
-        $abouts->src = $request->input('src');
+        if ($request->file('src')) {
+            $file = $request->file('src');    
+            $extension = $file->getClientOriginalExtension(); //getting image extension
+            $filename= time() . '.' . $extension;
+            $file ->move('img/',$filename);
+            $abouts->src =$filename;
+        }
+         
         $abouts->description = $request->input('description');
         $abouts->list1= $request->input('list1');
         $abouts->list2= $request->input('list2');
